@@ -1,0 +1,14 @@
+{
+  "DEV": {
+    "API_URL": "http://dev-counter-em.teko.vn",
+    "SERVICES": {}
+  },
+  "STAGE": {
+    "API_URL": "http://test-counter-em.teko.vn",
+    "SERVICES": {}
+  },
+  "PROD": {
+    "API_URL": "https://ucodeapis.com",
+    "SERVICES": {}
+  }
+}

@@ -1,0 +1,110 @@
+name: countdown
+description: Countdown App.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.1.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+  flutter_widgetkit: ^1.0.3
+
+  # icon
+  cupertino_icons: ^1.0.5
+  font_awesome_flutter: ^10.5.0
+
+  # design system
+  tekflat_design:
+    git: https://github.com/nghetien/tekflat_design
+  # path: ../../flutter_project/tekflat_design
+
+  # di
+  get_it: ^7.6.4
+
+  # database
+  shared_preferences: ^2.2.1
+
+  # remote
+  dio: ^5.3.2
+
+  # dart core
+  collection: ^1.17.1 # Update lên version mới nhất bị lỗi
+
+  # router
+  go_router: ^10.1.2
+
+  # state management
+  get: ^4.6.6
+  provider: ^6.0.5
+
+  # form builder
+  flutter_form_builder: ^9.1.0
+  form_builder_validators: ^9.0.0
+
+  # social sign in
+  google_sign_in: ^6.2.1
+  sign_in_with_apple: ^6.1.1
+  firebase_auth: ^4.1.1
+  firebase_core: ^2.32.0
+  retrofit: ^4.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  # lint
+  flutter_lints: ^2.0.3
+  lint: ^2.1.2
+
+  # build runner
+  build_runner: ^2.4.6
+
+  # json
+  json_annotation: ^4.8.1
+  json_serializable: ^6.7.1
+
+  # api gen code
+  retrofit_generator: ^7.0.8
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - .env
+    - .env.prod
+    - assets/
+    - assets/fonts/
+    - assets/images/
+    - config_app/
+
+  fonts:
+    - family: Lexend
+      fonts:
+        - asset: assets/fonts/Lexend-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/Lexend-Thin.ttf
+          weight: 200
+        - asset: assets/fonts/Lexend-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Lexend-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Lexend-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Lexend-Bold.ttf
+          weight: 600
+        - asset: assets/fonts/Lexend-Black.ttf
+          weight: 700
+        - asset: assets/fonts/Lexend-Black.ttf
+          weight: 800
+        - asset: assets/fonts/Lexend-Black.ttf
+          weight: 900
+
+flutter_intl:
+  enabled: true
+  arb_dir: lib/src/core/l10n
+  output_dir: lib/src/core/l10n/generated
