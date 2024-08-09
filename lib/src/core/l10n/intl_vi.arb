@@ -2,5 +2,12 @@
   "@@locale": "vi",
   "theme": "Giao diện",
   "language": "Ngôn ngữ",
-  "home": "Trang chủ"
+  "home": "Trang chủ",
+  "events": "Sự kiện",
+  "addEvent": "Thêm sự kiện",
+  "eventName": "Tên sự kiện",
+  "newEvent": "Sự kiện mới",
+  "note": "Ghi chú",
+  "date": "Ngày",
+  "time": "Thời gian"
 }

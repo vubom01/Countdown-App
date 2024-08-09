@@ -1,8 +1,8 @@
-import 'package:countdown/src/app/presentations/home/home.dart';
+import 'package:countdown/src/app/presentations/events/events_page.dart';
+import 'package:countdown/src/app/presentations/root/index.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:countdown/src/core/app_states/states/language_state.dart';
-import 'package:countdown/src/core/app_states/states/main_state.dart';
 import 'package:countdown/src/core/app_states/states/theme_state.dart';
 import 'package:tekflat_design/tekflat_design.dart';
 
@@ -24,6 +24,8 @@ class AppRouterKeys {
   static const ValueKey<String> $wishListKey = ValueKey<String>('APP_ROUTER_WISH_LIST_KEY');
 
   static const ValueKey<String> $profileKey = ValueKey<String>('APP_ROUTER_PROFILE_KEY');
+
+  static const ValueKey<String> $eventsKey = ValueKey<String>('APP_ROUTER_EVENTS_KEY');
 }
 
 class AppRouterImpl extends AppRouter {
@@ -34,23 +36,25 @@ class AppRouterImpl extends AppRouter {
   AppRouterImpl init() {
     _router = GoRouter(
       debugLogDiagnostics: true,
-      initialLocation: AppRoutes.home.path,
+      initialLocation: AppRoutes.events.path,
       redirect: (context, state) {
         _currentRoute = AppRoutes.getRouteFromString(state.matchedLocation);
         return null;
       },
       refreshListenable: Listenable.merge(
         [
-          MainState.to,
           LanguageState.to,
           ThemeState.to,
         ],
       ),
       routes: [
         GoRoute(
-          path: AppRoutes.home.path,
-          name: AppRoutes.home.name,
-          builder: (_, __) => const HomePage(key: AppRouterKeys.$signInKey),
+          path: AppRoutes.events.path,
+          name: AppRoutes.events.name,
+          builder: (_, __) => const RootPage(
+            key: AppRouterKeys.$rootKey,
+            child: EventsPage(key: AppRouterKeys.$eventsKey),
+          ),
         ),
         // ShellRoute(
         //   builder: (_, GoRouterState state, Widget child) => RootPage(

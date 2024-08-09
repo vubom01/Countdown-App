@@ -2,5 +2,12 @@
   "@@locale": "en",
   "theme": "Theme",
   "language": "Language",
-  "home": "Home"
+  "home": "Home",
+  "events": "Events",
+  "addEvent": "Add event",
+  "eventName": "Event name",
+  "newEvent": "New event",
+  "note": "Note",
+  "date": "Date",
+  "time": "Time"
 }

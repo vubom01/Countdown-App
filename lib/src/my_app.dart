@@ -6,7 +6,6 @@ import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:tekflat_design/tekflat_design.dart';
 
 import 'core/app_states/states/language_state.dart';
-import 'core/app_states/states/main_state.dart';
 import 'core/app_states/states/theme_state.dart';
 import 'core/router/router.dart';
 
@@ -28,14 +27,10 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider<ThemeState>(
           create: (_) => ThemeState.to,
         ),
-        ChangeNotifierProvider<MainState>(
-          create: (_) => MainState.to,
-        ),
       ],
       builder: (newContext, child) {
         Provider.of<LanguageState>(newContext, listen: true);
         Provider.of<ThemeState>(newContext, listen: true);
-        Provider.of<MainState>(newContext, listen: true);
         return MaterialApp.router(
           title: 'Countdown App',
           builder: TekLoading.appLoading.initLoading,

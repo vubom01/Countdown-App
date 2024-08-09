@@ -2,7 +2,7 @@ import 'package:collection/collection.dart';
 import 'package:countdown/src/core/l10n/generated/l10n.dart';
 
 enum AppRoutes {
-  home('/home'),
+  events('/events'),
   ;
 
   final String path;
@@ -11,8 +11,8 @@ enum AppRoutes {
 
   String get nameOfRoute {
     switch (this) {
-      case AppRoutes.home:
-        return S.current.home;
+      case AppRoutes.events:
+        return S.current.events;
     }
   }
 
