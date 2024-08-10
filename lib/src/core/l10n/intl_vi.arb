@@ -9,5 +9,7 @@
   "newEvent": "Sự kiện mới",
   "note": "Ghi chú",
   "date": "Ngày",
-  "time": "Thời gian"
+  "time": "Thời gian",
+  "selectTime": "Chọn thời gian",
+  "done": "Xong"
 }

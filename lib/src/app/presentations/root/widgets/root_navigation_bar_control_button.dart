@@ -35,7 +35,7 @@ class _RootNavigationBarControlButtonState extends State<RootNavigationBarContro
         height: 45.scaleSpacing,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: TekColors().primary,
+          color: context.colorScheme.primary,
         ),
         alignment: Alignment.center,
         padding: EdgeInsets.all(TekSpacings().p4),

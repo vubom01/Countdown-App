@@ -9,5 +9,7 @@
   "newEvent": "New event",
   "note": "Note",
   "date": "Date",
-  "time": "Time"
+  "time": "Time",
+  "selectTime": "Select time",
+  "done": "Done"
 }

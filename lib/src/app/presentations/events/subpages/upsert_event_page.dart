@@ -22,12 +22,19 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
   void _showDatePicker(BuildContext context, FormFieldState<DateTime> state) {
     showDatePicker(
       context: context,
-      fieldHintText: "dd/MM/yyyy",
+      fieldHintText: TekDateTimeFormatter().dateFormatter,
       firstDate: DateTime.now(),
       lastDate: DateTime.now().add(const Duration(days: 365 * 5)),
       initialDate: state.value,
       initialEntryMode: DatePickerEntryMode.calendarOnly,
     ).then((value) => state.didChange(value));
+  }
+
+  void _showTimePicker(BuildContext context, FormFieldState<DateTime> state) {
+    showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(state.value ?? DateTime.now()),
+    ).then((value) => state.didChange(DateTime(value!.hour, value.minute)));
   }
 
   @override
@@ -36,147 +43,184 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
       appBar: AppBarWidget(
         isBackButtonVisible: true,
         title: S.current.addEvent,
+        iconColor: TekColors().primary,
+        actions: [
+          TekButton(
+            text: S.current.done,
+            size: TekButtonSize.medium,
+            textColor: TekColors().primary,
+            hoverColor: null,
+          ),
+        ],
       ),
       child: Padding(
-        padding: EdgeInsets.all(TekSpacings().p8),
+        padding: EdgeInsets.all(TekSpacings().p24),
         child: FormBuilder(
           key: _formKey,
           initialValue: {
             EventFormKey.$name: S.current.newEvent,
             EventFormKey.$date: DateTime.now(),
+            EventFormKey.$time: DateFormat(TekDateTimeFormatter().timeFormatter).parse("09:00"),
           },
           child: Column(
             children: [
-              TekInput(
-                name: EventFormKey.$name,
-                hintText: S.current.eventName,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(8.0),
-                    topLeft: Radius.circular(8.0),
-                  ),
-                  borderSide: BorderSide(
-                    color: context.colorScheme.onBackground,
-                  ),
+              Container(
+                decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  color: TekColors().greyOpacity02,
                 ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(8.0),
-                    topLeft: Radius.circular(8.0),
-                  ),
-                  borderSide: BorderSide(
-                    color: context.colorScheme.onBackground,
-                  ),
+                padding: const EdgeInsets.fromLTRB(10, 2, 10, 2),
+                child: Column(
+                  children: [
+                    TekInput(
+                      name: EventFormKey.$name,
+                      hintText: S.current.eventName,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                      fillColor: Colors.transparent,
+                      onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                    ),
+                    TekDivider(color: TekColors().greyOpacity02),
+                    TekInput(
+                      name: EventFormKey.$note,
+                      hintText: S.current.note,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: BorderSide.none,
+                      ),
+                      fillColor: Colors.transparent,
+                      onTapOutside: (_) => FocusScope.of(context).unfocus(),
+                    ),
+                  ],
                 ),
-                onTapOutside: (_) => FocusScope.of(context).unfocus(),
-                onTap: () {},
-              ),
-              TekInput(
-                name: EventFormKey.$note,
-                hintText: S.current.note,
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0),
-                  ),
-                  borderSide: BorderSide(
-                    color: context.colorScheme.onBackground,
-                  ),
-                ),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: const BorderRadius.only(
-                    bottomLeft: Radius.circular(8.0),
-                    bottomRight: Radius.circular(8.0),
-                  ),
-                  borderSide: BorderSide(
-                    color: context.colorScheme.onBackground,
-                  ),
-                ),
-                onTapOutside: (_) => FocusScope.of(context).unfocus(),
               ),
               TekVSpace.mainSpace,
               Container(
                 decoration: BoxDecoration(
-                  border: Border.all(color: context.colorScheme.onBackground),
-                  borderRadius: BorderRadius.circular(4),
+                  borderRadius: const BorderRadius.all(Radius.circular(15)),
+                  color: TekColors().greyOpacity02,
                 ),
-                padding: EdgeInsets.fromLTRB(TekSpacings().p8, 0, TekSpacings().p8, 0),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                padding: const EdgeInsets.all(10),
+                child: Column(
                   children: [
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Icon(
-                          Icons.date_range_outlined,
-                          color: TekColors().red,
-                        ),
-                        TekHSpace.p4,
-                        Text(S.current.date),
-                      ],
-                    ),
-                    Expanded(
-                      flex: 0,
-                      child: FormBuilderField<DateTime>(
-                        name: EventFormKey.$date,
-                        builder: (FormFieldState<DateTime> state) {
-                          return Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(color: context.colorScheme.onBackground),
-                              borderRadius: BorderRadius.circular(4),
-                              color: TekColors().greyOpacity06,
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.calendar_month_outlined,
+                              color: TekColors().red,
                             ),
-                            padding: EdgeInsets.fromLTRB(TekSpacings().p4, 0, TekSpacings().p4, 0),
-                            child: TekButtonInkwell(
-                              onPressed: () => _showDatePicker(context, state),
-                              child: TekTypography(
-                                text: DateFormat("dd/MM/yyyy").format(
-                                  state.value ?? DateTime.now(),
+                            TekHSpace.p4,
+                            Text(S.current.date),
+                          ],
+                        ),
+                        FormBuilderField<DateTime>(
+                          name: EventFormKey.$date,
+                          builder: (FormFieldState<DateTime> state) {
+                            return Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(4),
+                                color: context.colorScheme.background,
+                              ),
+                              padding:
+                                  EdgeInsets.fromLTRB(TekSpacings().p4, 0, TekSpacings().p4, 0),
+                              child: TekButtonInkwell(
+                                onPressed: () => _showDatePicker(context, state),
+                                child: TekTypography(
+                                  text: DateFormat(TekDateTimeFormatter().dateFormatter).format(
+                                    state.value ?? DateTime.now(),
+                                  ),
                                 ),
                               ),
-                            ),
-                          );
-                        },
-                      ),
+                            );
+                          },
+                        ),
+                      ],
                     ),
+                    const TekVSpace(10),
+                    TekDivider(color: TekColors().greyOpacity02),
+                    const TekVSpace(10),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.access_time_outlined,
+                              color: TekColors().blue,
+                            ),
+                            TekHSpace.p4,
+                            Text(S.current.time),
+                          ],
+                        ),
+                        AdvancedSwitch(
+                          width: 44,
+                          height: 22,
+                          initialValue: _isSelectTime,
+                          activeColor: TekColors().primary,
+                          onChanged: (value) {
+                            setState(() {
+                              _isSelectTime = value;
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    if (_isSelectTime) ...[
+                      const TekVSpace(10),
+                      TekDivider(color: TekColors().greyOpacity02),
+                      const TekVSpace(10),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          FormBuilderField<DateTime>(
+                            name: EventFormKey.$time,
+                            builder: (FormFieldState<DateTime> state) {
+                              return Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  color: context.colorScheme.background,
+                                ),
+                                padding:
+                                    EdgeInsets.fromLTRB(TekSpacings().p4, 0, TekSpacings().p4, 0),
+                                child: TekButtonInkwell(
+                                  onPressed: () => _showTimePicker(context, state),
+                                  child: TekTypography(
+                                    text: DateFormat(TekDateTimeFormatter().timeFormatter).format(
+                                      state.value ?? DateTime.now(),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            },
+                          )
+                        ],
+                      ),
+                    ],
                   ],
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(color: context.colorScheme.onBackground),
-                  borderRadius: BorderRadius.circular(4),
-                ),
-                padding: EdgeInsets.fromLTRB(TekSpacings().p8, 0, TekSpacings().p8, 0),
-                height: 40,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.access_time_outlined,
-                          color: TekColors().blue,
-                        ),
-                        TekHSpace.p4,
-                        Text(S.current.time),
-                      ],
-                    ),
-                    AdvancedSwitch(
-                      width: 44,
-                      height: 22,
-                      initialValue: _isSelectTime,
-                      activeColor: TekColors().primary,
-                      onChanged: (value) {
-                        setState(() {
-                          _isSelectTime = value;
-                        });
-                      }
-                    ),
-                  ],
-                ),
+              TekVSpace.mainSpace,
+              TekButton(
+                text: S.current.done,
+                type: TekButtonType.primary,
+                width: double.infinity,
+                borderRadius: const BorderRadius.all(Radius.circular(15)),
               )
             ],
           ),
