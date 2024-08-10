@@ -1,6 +1,6 @@
 import 'package:countdown/src/app/presentations/widgets/app_bar.dart';
+import 'package:countdown/src/core/app_states/states/theme_state.dart';
 import 'package:countdown/src/core/base_widget/base_widget.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:tekflat_design/tekflat_design.dart';
@@ -15,7 +15,18 @@ class EventsPage extends StatefulWidget {
 }
 
 class _EventsPageState extends State<EventsPage> {
-  bool _isLightMode = false;
+  bool _isDarkMode = ThemeState.to.currentTheme == TekThemes.dark;
+
+  void _onChangeTheme() {
+    if (_isDarkMode) {
+      ThemeState.to.setCurrentTheme(ThemeMode.dark);
+      TekColors().setColors(primary: TekColors().primaryDark);
+    }
+    if (!_isDarkMode) {
+      ThemeState.to.setCurrentTheme(ThemeMode.light);
+      TekColors().setColors(primary: TekColors().primaryLight);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +40,13 @@ class _EventsPageState extends State<EventsPage> {
             child: AdvancedSwitch(
               width: 44,
               height: 22,
-              initialValue: _isLightMode,
+              initialValue: _isDarkMode,
               activeColor: TekColors().primary,
               onChanged: (value) {
                 setState(() {
-                  _isLightMode = value;
+                  _isDarkMode = value;
                 });
+                _onChangeTheme();
               },
             ),
           ),
