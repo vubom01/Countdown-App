@@ -13,5 +13,6 @@
   "time": "Time",
   "selectTime": "Select time",
   "done": "Done",
-  "noData": "No data"
+  "noData": "No data",
+  "pastEvent": "Past event"
 }

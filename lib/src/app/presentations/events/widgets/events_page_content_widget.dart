@@ -3,6 +3,7 @@ import 'package:countdown/src/app/presentations/events/events_controller.dart';
 import 'package:countdown/src/app/presentations/events/index.dart';
 import 'package:countdown/src/app/presentations/widgets/no_data.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
+import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:intl/intl.dart';
@@ -95,14 +96,19 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
                 ),
               ],
             ),
-            TimerCountdown(
-              format: CountDownTimerFormat.daysHoursMinutesSeconds,
-              endTime: _getEndTime(event.date, event.time),
-              spacerWidth: 4,
-              descriptionTextStyle: TextStyle(
-                fontSize: TekFontSizes().s10,
-              ),
-            )
+            _getEndTime(event.date, event.time).difference(DateTime.now()).inMinutes < 0
+                ? TekTypography(
+                    text: S.current.pastEvent,
+                    fontSize: TekFontSizes().s12,
+                  )
+                : TimerCountdown(
+                    format: CountDownTimerFormat.daysHoursMinutesSeconds,
+                    endTime: _getEndTime(event.date, event.time),
+                    spacerWidth: 4,
+                    descriptionTextStyle: TextStyle(
+                      fontSize: TekFontSizes().s10,
+                    ),
+                  )
           ],
         ),
       ),

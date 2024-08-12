@@ -13,5 +13,6 @@
   "time": "Thời gian",
   "selectTime": "Chọn thời gian",
   "done": "Xong",
-  "noData": "Không có dữ liệu"
+  "noData": "Không có dữ liệu",
+  "pastEvent": "Sự kiện đã qua"
 }
