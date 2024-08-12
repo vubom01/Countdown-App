@@ -1,8 +1,10 @@
 import 'package:countdown/src/app/data/data_sources/locals/event_local.dart';
 import 'package:countdown/src/app/presentations/events/events_state.dart';
+import 'package:countdown/src/core/constants/datetimes.dart';
 import 'package:countdown/src/core/data_sources/locals/isar_db.dart';
 import 'package:get/get.dart';
 import 'package:countdown/src/core/base_widget/base_controller.dart';
+import 'package:intl/intl.dart';
 
 class EventsController extends BaseController {
   static EventsController get to => Get.find<EventsController>();
@@ -20,7 +22,8 @@ class EventsController extends BaseController {
   Future initEvents() async {
     final result = await IsarDB.to.getAll<EventLocal>();
     result.sort((a, b) {
-      int compare = a.date.compareTo(b.date);
+      DateFormat dateFormat = DateFormat(DateTimeFormatters.dateFormat);
+      int compare = dateFormat.parse(a.date).compareTo(dateFormat.parse(b.date));
       if (compare == 0) {
         if (a.time == null) {
           compare = "".compareTo(b.time ?? '');
