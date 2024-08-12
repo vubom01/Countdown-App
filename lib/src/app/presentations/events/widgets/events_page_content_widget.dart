@@ -1,5 +1,6 @@
 import 'package:countdown/src/app/data/data_sources/locals/event_local.dart';
 import 'package:countdown/src/app/presentations/events/events_controller.dart';
+import 'package:countdown/src/app/presentations/events/index.dart';
 import 'package:countdown/src/app/presentations/widgets/no_data.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
 import 'package:flutter/cupertino.dart';
@@ -29,6 +30,10 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
         : DateTime(eventDate.year, eventDate.month, eventDate.day, 0, 0);
   }
 
+  void _onSelectEvent(EventLocal event) {
+    context.pushNavigator(page: UpsertEventPage(event: event));
+  }
+
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
@@ -37,7 +42,6 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
         await _controller.reFresh();
         _refreshController.refreshCompleted();
       },
-      onLoading: () {},
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -67,36 +71,40 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
   }
 
   Widget _eventCard(EventLocal event) {
-    return TekCard(
-      backgroundColor: TekColors().greyOpacity02,
-      borderRadius: const BorderRadius.all(Radius.circular(15)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              TekTypography(
-                text: event.name,
-                type: TekTypographyType.bodyMedium,
-              ),
-              TekTypography(
-                text: '${event.date} ${event.time ?? ''}',
-                fontSize: TekFontSizes().s12,
-              ),
-            ],
-          ),
-          TimerCountdown(
-            format: CountDownTimerFormat.daysHoursMinutesSeconds,
-            endTime: _getEndTime(event.date, event.time),
-            spacerWidth: 4,
-            descriptionTextStyle: TextStyle(
-              fontSize: TekFontSizes().s10,
+    return TekButtonInkwell(
+      onPressed: () => _onSelectEvent(event),
+      child: TekCard(
+        backgroundColor: TekColors().greyOpacity02,
+        borderRadius: const BorderRadius.all(Radius.circular(15)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TekTypography(
+                  text: event.name,
+                  type: TekTypographyType.bodyMedium,
+                  fontSize: TekFontSizes().s12,
+                ),
+                TekTypography(
+                  text: '${event.date} ${event.time ?? ''}',
+                  fontSize: TekFontSizes().s12,
+                ),
+              ],
             ),
-          )
-        ],
+            TimerCountdown(
+              format: CountDownTimerFormat.daysHoursMinutesSeconds,
+              endTime: _getEndTime(event.date, event.time),
+              spacerWidth: 4,
+              descriptionTextStyle: TextStyle(
+                fontSize: TekFontSizes().s10,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

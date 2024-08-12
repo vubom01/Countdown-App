@@ -15,7 +15,9 @@ import 'package:intl/intl.dart';
 import 'package:tekflat_design/tekflat_design.dart';
 
 class UpsertEventPage extends StatefulWidget {
-  const UpsertEventPage({super.key});
+  final EventLocal? event;
+
+  const UpsertEventPage({super.key, this.event});
 
   @override
   State<UpsertEventPage> createState() => _UpsertEventPageState();
@@ -27,6 +29,14 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
   final _formKey = GlobalKey<FormBuilderState>();
 
   bool _isSelectTime = false;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.event?.time != null) {
+      _isSelectTime = true;
+    }
+  }
 
   void _showDatePicker(BuildContext context, FormFieldState<DateTime> state) {
     BottomPicker.date(
@@ -79,17 +89,34 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
     name = name.isEmpty ? "New event" : name;
     note = (note == null || note.isEmpty) ? null : note;
 
-    _controller
-        .upsertEvent(
-      EventLocal()
-        ..name = name
-        ..note = note
-        ..date = date
-        ..time = time,
-    )
-        .then((value) {
-      context.popNavigator();
-    });
+    if (widget.event?.id != null) {
+      _controller
+          .upsertEvent(
+        EventLocal()
+          ..id = widget.event?.id ?? 0
+          ..name = name
+          ..note = note
+          ..date = date
+          ..time = time,
+      )
+          .then((value) {
+        context.popNavigator();
+      });
+    }
+
+    if (widget.event?.id == null) {
+      _controller
+          .upsertEvent(
+        EventLocal()
+          ..name = name
+          ..note = note
+          ..date = date
+          ..time = time,
+      )
+          .then((value) {
+        context.popNavigator();
+      });
+    }
   }
 
   @override
@@ -97,7 +124,7 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
     return BaseView(
       appBar: AppBarWidget(
         isBackButtonVisible: true,
-        title: S.current.addEvent,
+        title: widget.event == null ? S.current.addEvent : S.current.updateEvent,
         iconColor: TekColors().primary,
         actions: [
           TekButton(
@@ -113,9 +140,15 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
         child: FormBuilder(
           key: _formKey,
           initialValue: {
-            EventFormKey.$name: S.current.newEvent,
-            EventFormKey.$date: DateTime.now(),
-            EventFormKey.$time: DateFormat(DateTimeFormatters.timeFormat).parse("09:00"),
+            EventFormKey.$name: widget.event?.name ?? S.current.newEvent,
+            EventFormKey.$note: widget.event?.note,
+            EventFormKey.$date: DateFormat(DateTimeFormatters.dateFormat).parse(
+              widget.event?.date ??
+                  DateFormat(DateTimeFormatters.dateFormat).format(DateTime.now()),
+            ),
+            EventFormKey.$time: DateFormat(DateTimeFormatters.timeFormat).parse(
+              widget.event?.time ?? "09:00",
+            ),
           },
           child: Column(
             children: [

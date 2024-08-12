@@ -19,6 +19,18 @@ class EventsController extends BaseController {
 
   Future initEvents() async {
     final result = await IsarDB.to.getAll<EventLocal>();
+    result.sort((a, b) {
+      int compare = a.date.compareTo(b.date);
+      if (compare == 0) {
+        if (a.time == null) {
+          compare = "".compareTo(b.time ?? '');
+        }
+        if (a.time != null) {
+          compare = a.time!.compareTo(b.time ?? '');
+        }
+      }
+      return compare;
+    });
     state.setEvents(result);
   }
 

@@ -5,6 +5,7 @@
   "home": "Trang chủ",
   "events": "Sự kiện",
   "addEvent": "Thêm sự kiện",
+  "updateEvent": "Cập nhật sự kiện",
   "eventName": "Tên sự kiện",
   "newEvent": "Sự kiện mới",
   "note": "Ghi chú",

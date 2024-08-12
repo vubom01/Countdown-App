@@ -5,6 +5,7 @@
   "home": "Home",
   "events": "Events",
   "addEvent": "Add event",
+  "updateEvent": "Update event",
   "eventName": "Event name",
   "newEvent": "New event",
   "note": "Note",
