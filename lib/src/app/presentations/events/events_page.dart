@@ -18,11 +18,6 @@ class _EventsPageState extends State<EventsPage> {
   bool _isDarkMode = ThemeState.to.currentTheme == TekThemes.dark;
 
   @override
-  void didChangeDependencies() {
-    super.didChangeDependencies();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return BaseViewController(
       controller: EventsController(),

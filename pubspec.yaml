@@ -25,6 +25,8 @@ dependencies:
   tekflat_design:
     git: https://github.com/nghetien/tekflat_design
   flutter_advanced_switch: ^3.1.0
+  bottom_picker: ^2.8.0
+  flutter_svg: ^2.0.10
   # path: ../../flutter_project/tekflat_design
 
   # di

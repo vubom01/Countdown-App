@@ -1,50 +1,8 @@
 class AppSvgIcons {
   const AppSvgIcons._();
 
-  static const String homeOutlined = 'assets/images/svg_icons/HomeOutlined.svg';
-  static const String exploreOutlined = 'assets/images/svg_icons/Map.svg';
-  static const String calendarOutlined = 'assets/images/svg_icons/CalendarOutlined.svg';
-  static const String calendar = 'assets/images/svg_icons/Calendar.svg';
-  static const String profileOutlined = 'assets/images/svg_icons/ProfileOutlined.svg';
-  static const String userOutlined = 'assets/images/svg_icons/UserOutlined.svg';
-  static const String bellOutlined = 'assets/images/svg_icons/BellOutlined.svg';
-  static const String sadFace = 'assets/images/svg_icons/face_sad.svg';
-  static const String happyFace = 'assets/images/svg_icons/face_happy.svg';
-  static const String favoriteFace = 'assets/images/svg_icons/face_favorite.svg';
   static const String arrowLeftOutlined = 'assets/images/svg_icons/ArrowLeftOutlined.svg';
-  static const String settingOutlined = 'assets/images/svg_icons/SettingOutlined.svg';
-  static const String shareAltOutlined = 'assets/images/svg_icons/ShareAltOutlined.svg';
-  static const String downloadOutlined = 'assets/images/svg_icons/DownloadOutlined.svg';
-  static const String nodeIndexOutlined = 'assets/images/svg_icons/NodeIndexOutlined.svg';
-  static const String teamOutlined = 'assets/images/svg_icons/TeamOutlined.svg';
-  static const String pieChartOutlined = 'assets/images/svg_icons/PieChartOutlined.svg';
-  static const String messageOutlined = 'assets/images/svg_icons/MessageOutlined.svg';
-  static const String clockCircleOutlined = 'assets/images/svg_icons/ClockCircleOutlined.svg';
-  static const String hourglassOutlined = 'assets/images/svg_icons/HourglassOutlined.svg';
-  static const String fileTextOutlined = 'assets/images/svg_icons/FileTextOutlined.svg';
-  static const String editOutlined = 'assets/images/svg_icons/EditOutlined.svg';
-  static const String searchOutlined = 'assets/images/svg_icons/SearchOutlined.svg';
-  static const String dollarOutlined = 'assets/images/svg_icons/DollarOutlined.svg';
-  static const String moneySend = 'assets/images/svg_icons/money-send.svg';
-  static const String giveGift = 'assets/images/svg_icons/give-gift.svg';
-  static const String dragOutlined = 'assets/images/svg_icons/DragOutlined.svg';
-  static const String minusCircleOutlined = 'assets/images/svg_icons/MinusCircleOutlined.svg';
-  static const String emojiHappy = 'assets/images/svg_icons/EmojiHappy.svg';
-  static const String moneySendOutlined = 'assets/images/svg_icons/MoneySendOutlined.svg';
-  static const String moneyReceiveOutlined = 'assets/images/svg_icons/MoneyReceiveOutlined.svg';
-  static const String pinOutlined = 'assets/images/svg_icons/PinOutlined.svg';
-  static const String environmentOutlined = 'assets/images/svg_icons/EnvironmentOutlined.svg';
-  static const String environmentFilled = 'assets/images/svg_icons/EnvironmentFilled.svg';
-  static const String archive = 'assets/images/svg_icons/archive.svg';
-  static const String unarchive = 'assets/images/svg_icons/unarchive.svg';
-  static const String deleteOutlined = 'assets/images/svg_icons/DeleteOutlined.svg';
-  static const String leftArrow = 'assets/images/svg_icons/LeftArrow.svg';
-  static const String bankOutlined = 'assets/images/svg_icons/BankOutlined.svg';
 
-  static const String codeOutlined = 'assets/images/svg_icons/CodeOutlined.svg';
-  static const String scanOutlined = 'assets/images/svg_icons/ScanOutlined.svg';
-  static const String noteAddOutlined = 'assets/images/svg_icons/NoteAddOutlined.svg';
-  static const String dymondColored = 'assets/images/svg_icons/DymondColored.svg';
-  static const String linkOutlined = 'assets/images/svg_icons/LinkOutlined.svg';
-  static const String qrcodeOutlined = 'assets/images/svg_icons/QrcodeOutlined.svg';
+  static const String clockMultiColor = 'assets/images/svg_icons/ClockMultiColor.svg';
+  static const String calendarMultiColor = 'assets/images/svg_icons/CalendarMultiColor.svg';
 }
