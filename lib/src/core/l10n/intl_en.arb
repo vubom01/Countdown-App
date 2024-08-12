@@ -11,5 +11,6 @@
   "date": "Date",
   "time": "Time",
   "selectTime": "Select time",
-  "done": "Done"
+  "done": "Done",
+  "noData": "No data"
 }

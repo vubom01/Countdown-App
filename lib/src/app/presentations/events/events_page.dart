@@ -1,3 +1,4 @@
+import 'package:countdown/src/app/presentations/events/widgets/index.dart';
 import 'package:countdown/src/app/presentations/widgets/app_bar.dart';
 import 'package:countdown/src/core/app_states/states/theme_state.dart';
 import 'package:countdown/src/core/base_widget/base_widget.dart';
@@ -52,6 +53,7 @@ class _EventsPageState extends State<EventsPage> {
                   topRight: Radius.circular(16),
                 ),
               ),
+              child: const EventsPageContentWidget(),
             ),
           ),
         ],

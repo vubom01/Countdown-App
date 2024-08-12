@@ -1,4 +1,6 @@
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:countdown/src/app/data/data_sources/locals/event_local.dart';
+import 'package:countdown/src/app/presentations/events/events_controller.dart';
 import 'package:countdown/src/app/presentations/widgets/app_bar.dart';
 import 'package:countdown/src/core/base_widget/base_view.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
@@ -20,6 +22,8 @@ class UpsertEventPage extends StatefulWidget {
 }
 
 class _UpsertEventPageState extends State<UpsertEventPage> {
+  EventsController get _controller => EventsController.to;
+
   final _formKey = GlobalKey<FormBuilderState>();
 
   bool _isSelectTime = false;
@@ -62,6 +66,32 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
     ).show(context);
   }
 
+  void _onUpsertEvent() {
+    String name = _formKey.currentState!.fields[EventFormKey.$name]?.value;
+    String? note = _formKey.currentState!.fields[EventFormKey.$note]?.value;
+    String date = DateFormat(DateTimeFormatters.dateFormat)
+        .format(_formKey.currentState!.fields[EventFormKey.$date]?.value);
+    String? time = _isSelectTime
+        ? DateFormat(DateTimeFormatters.timeFormat)
+            .format(_formKey.currentState!.fields[EventFormKey.$time]?.value)
+        : null;
+
+    name = name.isEmpty ? "New event" : name;
+    note = (note == null || note.isEmpty) ? null : note;
+
+    _controller
+        .upsertEvent(
+      EventLocal()
+        ..name = name
+        ..note = note
+        ..date = date
+        ..time = time,
+    )
+        .then((value) {
+      context.popNavigator();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return BaseView(
@@ -74,7 +104,7 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
             text: S.current.done,
             size: TekButtonSize.medium,
             textColor: TekColors().primary,
-            hoverColor: null,
+            background: Colors.transparent,
           ),
         ],
       ),
@@ -246,6 +276,7 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
                 type: TekButtonType.primary,
                 width: double.infinity,
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
+                onPressed: _onUpsertEvent,
               )
             ],
           ),

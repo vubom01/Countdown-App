@@ -11,5 +11,6 @@
   "date": "Ngày",
   "time": "Thời gian",
   "selectTime": "Chọn thời gian",
-  "done": "Xong"
+  "done": "Xong",
+  "noData": "Không có dữ liệu"
 }
