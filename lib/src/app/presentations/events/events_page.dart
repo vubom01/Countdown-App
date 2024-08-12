@@ -1,8 +1,10 @@
 import 'package:countdown/src/app/presentations/widgets/app_bar.dart';
 import 'package:countdown/src/core/app_states/states/theme_state.dart';
 import 'package:countdown/src/core/base_widget/base_widget.dart';
+import 'package:countdown/src/core/utils/extensions/context.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:get/get.dart';
 import 'package:tekflat_design/tekflat_design.dart';
 
 import 'events_controller.dart';
@@ -20,12 +22,15 @@ class _EventsPageState extends State<EventsPage> {
   void _onChangeTheme() {
     if (_isDarkMode) {
       ThemeState.to.setCurrentTheme(ThemeMode.dark);
-      TekColors().setColors(primary: TekColors().primaryDark);
     }
     if (!_isDarkMode) {
       ThemeState.to.setCurrentTheme(ThemeMode.light);
-      TekColors().setColors(primary: TekColors().primaryLight);
     }
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
   }
 
   @override

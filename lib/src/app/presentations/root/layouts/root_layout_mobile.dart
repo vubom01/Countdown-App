@@ -1,3 +1,4 @@
+import 'package:countdown/src/core/app_states/states/theme_state.dart';
 import 'package:flutter/material.dart';
 import 'package:countdown/src/core/app_states/states/language_state.dart';
 
@@ -20,7 +21,9 @@ class RootLayoutMobile extends StatelessWidget {
         children: [
           Expanded(child: child),
           RootBottomNavigationBarWidget(
-            key: Key(LanguageState.to.currentLocale.languageCode),
+            key: Key(
+              '${LanguageState.to.currentLocale.languageCode}, ${ThemeState.to.currentThemeMode.toString()}',
+            ),
           ),
         ],
       );

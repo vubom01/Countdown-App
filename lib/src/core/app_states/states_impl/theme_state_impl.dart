@@ -35,12 +35,15 @@ class ThemeStateImpl extends ThemeState {
     switch (appThemeMode) {
       case ThemeMode.light:
         _currentTheme = MapEntry(ThemeMode.light, TekThemes.light);
+        TekColors().setColors(primary: TekColors().primaryLight);
         break;
       case ThemeMode.dark:
         _currentTheme = MapEntry(ThemeMode.dark, TekThemes.dark);
+        TekColors().setColors(primary: TekColors().primaryDark);
         break;
       case ThemeMode.system:
         _currentTheme = MapEntry(ThemeMode.light, TekThemes.light);
+        TekColors().setColors(primary: TekColors().primaryLight);
         break;
     }
     SharedPrefsService.to.setString(SharedPrefsServiceKeys.$theme, appThemeMode.toString());
