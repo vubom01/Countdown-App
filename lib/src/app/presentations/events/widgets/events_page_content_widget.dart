@@ -5,6 +5,7 @@ import 'package:countdown/src/app/presentations/widgets/no_data.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
 import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -35,6 +36,11 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
     context.pushNavigator(page: UpsertEventPage(event: event));
   }
 
+  void _updateWidgetData() {
+    final events = _controller.state.events;
+    EventDataTransfer.sendEventData(events);
+  }
+
   @override
   Widget build(BuildContext context) {
     return SmartRefresher(
@@ -42,6 +48,7 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
       onRefresh: () async {
         await _controller.reFresh();
         _refreshController.refreshCompleted();
+        _updateWidgetData();
       },
       child: SingleChildScrollView(
         child: Column(
@@ -113,5 +120,23 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
         ),
       ),
     );
+  }
+}
+
+class EventDataTransfer {
+  static const MethodChannel _channel = MethodChannel('com.vulh.countdown/eventData');
+
+  static Future<void> sendEventData(List<EventLocal> events) async {
+    try {
+      final List<Map<String, dynamic>> eventList = events.map((event) => {
+        'name': event.name,
+        'date': event.date,
+        'time': event.time ?? "00:00",
+      }).toList();
+
+      await _channel.invokeMethod('sendEventData', {'events': eventList});
+    } on PlatformException catch (e) {
+      print("Failed to send event data: '${e.message}'.");
+    }
   }
 }

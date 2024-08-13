@@ -1,83 +1,75 @@
-//
-//  countdownWidget.swift
-//  countdownWidget
-//
-//  Created by teko on 2/8/24.
-//
-
 import WidgetKit
 import SwiftUI
-import Intents
-
-struct WidgetData: Decodable, Hashable {
-    let text: String
-}
-
-struct FlutterEntry: TimelineEntry {
-    let date: Date
-    let widgetData: WidgetData?
-}
 
 struct Provider: TimelineProvider {
-    func placeholder(in context: Context) -> FlutterEntry {
-        FlutterEntry(date: Date(), widgetData: WidgetData(text: "Countdown Widget"))
+    func placeholder(in context: Context) -> SimpleEntry {
+        SimpleEntry(date: Date(), events: [])
     }
 
-    func getSnapshot(in context: Context, completion: @escaping (FlutterEntry) -> ()) {
-        let entry = FlutterEntry(date: Date(), widgetData: WidgetData(text: "Countdown Widget"))
+    func getSnapshot(in context: Context, completion: @escaping (SimpleEntry) -> ()) {
+        let entry = SimpleEntry(date: Date(), events: loadEventData())
         completion(entry)
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-        let sharedDefaults = UserDefaults.init(suiteName: "group.com.vulh")
-        let flutterData = try? JSONDecoder().decode(WidgetData.self, from: (sharedDefaults?
-            .string(forKey: "widgetData")?.data(using: .utf8)) ?? Data())
+        var entries: [SimpleEntry] = []
 
-        let entryDate = Calendar.current.date(byAdding: .hour, value: 24, to: Date())!
-        let entry = FlutterEntry(date: entryDate, widgetData: flutterData)
+        // Generate a timeline consisting of five entries an hour apart, starting from the current date.
+        let currentDate = Date()
+        for hourOffset in 0 ..< 5 {
+            let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
+            let entry = SimpleEntry(date: entryDate, events: loadEventData())
+            entries.append(entry)
+        }
 
-        let timeline = Timeline(entries: [entry], policy: .atEnd)
+        let timeline = Timeline(entries: entries, policy: .atEnd)
         completion(timeline)
     }
-}
 
-struct countdownWidgetEntryView : View {
-    var entry: Provider.Entry
-    
-    var body: some View {
-        Text(entry.widgetData?.text ?? "Tap to set message.")
+    private func loadEventData() -> [Event] {
+        let userDefaults = UserDefaults(suiteName: "group.com.vulh")
+        if let eventData = userDefaults?.array(forKey: "eventData") as? [[String: String]] {
+            return eventData.map { dict in
+                Event(name: dict["name"] ?? "", date: dict["date"] ?? "", time: dict["time"])
+            }
+        }
+        return []
     }
 }
 
-struct countdownWidget: Widget {
-    let kind: String = "countdownWidget"
+struct SimpleEntry: TimelineEntry {
+    let date: Date
+    let events: [Event]
+}
+
+struct Event {
+    let name: String
+    let date: String
+    let time: String?
+}
+
+struct CountdownWidgetEntryView : View {
+    var entry: Provider.Entry
+
+    var body: some View {
+        VStack(alignment: .leading) {
+            ForEach(entry.events, id: \.name) { event in
+                Text("\(event.name) - \(event.date) \(event.time ?? "")")
+                    .font(.caption)
+            }
+        }
+        .padding()
+    }
+}
+
+struct CountdownWidget: Widget {
+    let kind: String = "CountdownWidget"
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: Provider()) { entry in
-            countdownWidgetEntryView(entry: entry)
+            CountdownWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("Countdown Widget")
-        .description("This is an example Flutter iOS widget.")
+        .description("This widget displays upcoming events.")
     }
 }
-
-//extension ConfigurationAppIntent {
-//    fileprivate static var smiley: ConfigurationAppIntent {
-//        let intent = ConfigurationAppIntent()
-//        intent.favoriteEmoji = "😀"
-//        return intent
-//    }
-//    
-//    fileprivate static var starEyes: ConfigurationAppIntent {
-//        let intent = ConfigurationAppIntent()
-//        intent.favoriteEmoji = "🤩"
-//        return intent
-//    }
-//}
-//
-//#Preview(as: .systemSmall) {
-//    countdownWidget()
-//} timeline: {
-//    SimpleEntry(date: .now, configuration: .smiley)
-//    SimpleEntry(date: .now, configuration: .starEyes)
-//}
