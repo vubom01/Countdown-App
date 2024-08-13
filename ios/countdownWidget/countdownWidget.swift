@@ -27,7 +27,7 @@ struct Provider: TimelineProvider {
     }
 
     private func loadEventData() -> [Event] {
-        let userDefaults = UserDefaults(suiteName: "group.com.vulh")
+        let userDefaults = UserDefaults(suiteName: "group.vulh.countdown")
         if let eventData = userDefaults?.array(forKey: "eventData") as? [[String: String]] {
             return eventData.map { dict in
                 Event(name: dict["name"] ?? "", date: dict["date"] ?? "", time: dict["time"])
