@@ -14,11 +14,11 @@ extension EventSelectionIntent: INIntentHandlerProviding {
 }
 
 class EventSelectionIntentHandler: NSObject, EventSelectionIntentHandling {
-    func handle(intent: EventSelectionIntent, completion: @escaping (EventSelectionIntentIntentResponse) -> Void) {
+    func handle(intent: EventSelectionIntent, completion: @escaping (EventSelectionIntentResponse) -> Void) {
         let eventName = intent.eventName ?? "Default Event"
         // Handle the intent and create a response
-        let response = EventSelectionIntentIntentResponse(code: .success, userActivity: nil)
-        response.eventName = eventName
+        let response = EventSelectionIntentResponse(code: .success, userActivity: nil)
+//        response.eventName = eventName
         completion(response)
     }
 

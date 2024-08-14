@@ -28,6 +28,7 @@
 	<true/>
 	<key>NSUserActivityTypes</key>
 	<array>
+		<string>EventSelectionIntent</string>
 		<string>EventSelectionIntentIntent</string>
 	</array>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
