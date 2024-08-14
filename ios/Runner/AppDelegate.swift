@@ -14,11 +14,11 @@ import Flutter
                                            binaryMessenger: controller.binaryMessenger)
 
     dataChannel.setMethodCallHandler { (call: FlutterMethodCall, result: @escaping FlutterResult) in
-      if call.method == "sendEventData" {
+      if call.method == constSendDataMethod {
         if let arguments = call.arguments as? [String: Any],
-           let events = arguments["events"] as? [[String: String]] {
+          let events = arguments[constEventsKey] as? [[String: String]] {
           let userDefaults = UserDefaults(suiteName: constAppGroup)
-          userDefaults?.set(events, forKey: "eventData")
+          userDefaults?.set(events, forKey: constEventsKey)
           result("Event data saved")
         } else {
           result(FlutterError(code: "INVALID_ARGUMENT", message: "Data format is incorrect", details: nil))

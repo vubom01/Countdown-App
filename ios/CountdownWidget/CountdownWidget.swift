@@ -18,21 +18,12 @@ struct Provider: IntentTimelineProvider {
     }
 
     func getTimeline(for configuration: EventSelectionIntent, in context: Context, completion: @escaping (Timeline<CountdownWidgetEntry>) -> Void) {
-        let entry = CountdownWidgetEntry(date: Date(), events: loadEventData())
+        let entry = CountdownWidgetEntry(date: Date(), events: getAllEvents())
         
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
     }
-    
-    private func loadEventData() -> [Event] {
-      let userDefaults = UserDefaults(suiteName: constAppGroup)
-      if let eventData = userDefaults?.array(forKey: "eventData") as? [[String: String]] {
-        return eventData.map { dict in
-          Event(id: dict["name"] ?? "", name: dict["name"] ?? "")
-        }
-      }
-      return []
-    }
+
 }
 
 struct CountdownWidgetEntryView: View {

@@ -7,12 +7,9 @@
 
 import Foundation
 
-struct Event: Decodable {
+struct Event {
     let id: String
     let name: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id = "Slug"
-        case name = "event"
-    }
+    let date: String
+    let time: String?
 }

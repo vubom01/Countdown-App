@@ -3,10 +3,12 @@ import 'package:countdown/src/app/presentations/events/events_controller.dart';
 import 'package:countdown/src/app/presentations/events/index.dart';
 import 'package:countdown/src/app/presentations/widgets/no_data.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
+import 'package:countdown/src/core/constants/widget_groups.dart';
 import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
+import 'package:flutter_widgetkit/flutter_widgetkit.dart';
 import 'package:intl/intl.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'package:tekflat_design/tekflat_design.dart';
@@ -124,17 +126,20 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
 }
 
 class EventDataTransfer {
-  static const MethodChannel _channel = MethodChannel('com.vulh.countdown/eventData');
+  static const MethodChannel _channel = MethodChannel(WidgetGroups.methodChannel);
 
   static Future<void> sendEventData(List<EventLocal> events) async {
     try {
-      final List<Map<String, dynamic>> eventList = events.map((event) => {
-        'name': event.name,
-        'date': event.date,
-        'time': event.time ?? "00:00",
-      }).toList();
+      final List<Map<String, dynamic>> eventList = events
+          .map((event) => {
+                'name': event.name,
+                'date': event.date,
+                'time': event.time ?? "00:00",
+              })
+          .toList();
 
-      await _channel.invokeMethod('sendEventData', {'events': eventList});
+      await _channel.invokeMethod(WidgetGroups.sendDataMethod, {WidgetGroups.eventsKey: eventList});
+      WidgetKit.reloadAllTimelines();
     } on PlatformException catch (e) {
       print("Failed to send event data: '${e.message}'.");
     }

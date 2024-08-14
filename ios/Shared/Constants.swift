@@ -8,4 +8,6 @@
 import Foundation
 
 let constAppGroup = "group.com.vulh"
-let constFlutterMethodName = "com.vulh.countdown/eventData"
+let constFlutterMethodName = "com.vulh.countdown/events"
+let constEventsKey = "events"
+let constSendDataMethod = "sendData"

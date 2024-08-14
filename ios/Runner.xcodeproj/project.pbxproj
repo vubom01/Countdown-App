@@ -37,6 +37,9 @@
 		BCCE2FDD2C6C81E700D9CF80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FDC2C6C81E700D9CF80 /* Constants.swift */; };
 		BCCE2FDE2C6C81E700D9CF80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FDC2C6C81E700D9CF80 /* Constants.swift */; };
 		BCCE2FDF2C6C81E700D9CF80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FDC2C6C81E700D9CF80 /* Constants.swift */; };
+		BCCE2FE12C6C874100D9CF80 /* EventServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FE02C6C874100D9CF80 /* EventServices.swift */; };
+		BCCE2FE22C6C874100D9CF80 /* EventServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FE02C6C874100D9CF80 /* EventServices.swift */; };
+		BCCE2FE32C6C874100D9CF80 /* EventServices.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE2FE02C6C874100D9CF80 /* EventServices.swift */; };
 		C1C60A17FDD57EB084DE4A95 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 75E83DF64492873A5AECE98F /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +145,7 @@
 		BCCE2FDA2C6C7CD900D9CF80 /* CountdownIntentExtensionProfile-dev.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "CountdownIntentExtensionProfile-dev.entitlements"; sourceTree = "<group>"; };
 		BCCE2FDB2C6C817200D9CF80 /* CountdownIntentExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CountdownIntentExtension.entitlements; sourceTree = "<group>"; };
 		BCCE2FDC2C6C81E700D9CF80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		BCCE2FE02C6C874100D9CF80 /* EventServices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventServices.swift; sourceTree = "<group>"; };
 		C17B7E047837ABDD13CB5378 /* Pods-Runner.profile-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-prod.xcconfig"; sourceTree = "<group>"; };
 		CF4825D70707F623E7F330E0 /* Pods-RunnerTests.debug-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug-prod.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug-prod.xcconfig"; sourceTree = "<group>"; };
 		E4B44A074487CA6A2CA49D33 /* Pods-Runner.release-prod.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release-prod.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release-prod.xcconfig"; sourceTree = "<group>"; };
@@ -304,6 +308,7 @@
 				BCCE2FBB2C6C699500D9CF80 /* Utils.swift */,
 				BCCE2FBF2C6C6A1700D9CF80 /* Model.swift */,
 				BCCE2FDC2C6C81E700D9CF80 /* Constants.swift */,
+				BCCE2FE02C6C874100D9CF80 /* EventServices.swift */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -613,6 +618,7 @@
 				BCCE2FC02C6C6A1700D9CF80 /* Model.swift in Sources */,
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
 				BC99A9E32C6C506B00B2AD90 /* EventSelection.intentdefinition in Sources */,
+				BCCE2FE12C6C874100D9CF80 /* EventServices.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				BCCE2FBC2C6C699500D9CF80 /* Utils.swift in Sources */,
 				BCCE2FDD2C6C81E700D9CF80 /* Constants.swift in Sources */,
@@ -627,6 +633,7 @@
 				BC99A9E42C6C506B00B2AD90 /* EventSelection.intentdefinition in Sources */,
 				BC020FA22C5CE2400055F0EE /* countdownWidgetBundle.swift in Sources */,
 				BCCE2FC12C6C6A1700D9CF80 /* Model.swift in Sources */,
+				BCCE2FE22C6C874100D9CF80 /* EventServices.swift in Sources */,
 				BCCE2FDE2C6C81E700D9CF80 /* Constants.swift in Sources */,
 				BC020FA42C5CE2400055F0EE /* countdownWidget.swift in Sources */,
 				BC020FA62C5CE2400055F0EE /* AppIntent.swift in Sources */,
@@ -637,6 +644,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCCE2FE32C6C874100D9CF80 /* EventServices.swift in Sources */,
 				BCCE2FDF2C6C81E700D9CF80 /* Constants.swift in Sources */,
 				BCCE2FD82C6C6C6300D9CF80 /* Model.swift in Sources */,
 				BCCE2FD72C6C6C5C00D9CF80 /* EventSelection.intentdefinition in Sources */,
