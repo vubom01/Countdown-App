@@ -132,6 +132,7 @@ class EventDataTransfer {
     try {
       final List<Map<String, dynamic>> eventList = events
           .map((event) => {
+                'id': event.id.toString(),
                 'name': event.name,
                 'date': event.date,
                 'time': event.time ?? "00:00",

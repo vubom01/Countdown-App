@@ -4,21 +4,21 @@ import Intents
 
 struct CountdownWidgetEntry: TimelineEntry {
     let date: Date
-    let events: [Event]
+    let event: Event?
 }
 
 struct Provider: IntentTimelineProvider {
     func placeholder(in context: Context) -> CountdownWidgetEntry {
-        CountdownWidgetEntry(date: Date(), events: [])
+        CountdownWidgetEntry(date: Date(), event: Event(id: "id", name: "name", date: "date", time: "time"))
     }
 
     func getSnapshot(for configuration: EventSelectionIntent, in context: Context, completion: @escaping (CountdownWidgetEntry) -> Void) {
-        let entry = CountdownWidgetEntry(date: Date(), events: [])
+        let entry = CountdownWidgetEntry(date: Date(), event: getEventById(id: configuration.event?.identifier))
         completion(entry)
     }
 
     func getTimeline(for configuration: EventSelectionIntent, in context: Context, completion: @escaping (Timeline<CountdownWidgetEntry>) -> Void) {
-        let entry = CountdownWidgetEntry(date: Date(), events: getAllEvents())
+        let entry = CountdownWidgetEntry(date: Date(), event: getEventById(id: configuration.event?.identifier))
         
         let timeline = Timeline(entries: [entry], policy: .atEnd)
         completion(timeline)
@@ -31,10 +31,8 @@ struct CountdownWidgetEntryView: View {
 
     var body: some View {
       VStack(alignment: .leading) {
-        ForEach(entry.events, id: \.name) { event in
-          Text("\(event.name)")
+          Text(entry.event?.name ?? "")
             .font(.caption)
-        }
       }
       .padding()
     }

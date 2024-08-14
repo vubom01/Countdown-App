@@ -16,3 +16,8 @@ func getAllEvents() -> [Event] {
   }
   return []
 }
+
+func getEventById(id: String?) -> Event? {
+    let events = getAllEvents()
+    return events.first { $0.id == id }
+}
