@@ -65,6 +65,7 @@ dependencies:
   isar: ^3.1.0+1
   isar_flutter_libs: ^3.1.0+1
   calendar_date_picker2: ^1.1.5
+  flutter_slidable: ^3.1.1
 
 dev_dependencies:
   flutter_test:

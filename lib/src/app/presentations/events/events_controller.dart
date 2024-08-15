@@ -47,4 +47,11 @@ class EventsController extends BaseController {
     });
     return result?.id != null;
   }
+
+  Future<bool> deleteEvent(EventLocal event) async {
+    await IsarDB.to.delete<EventLocal>(event.id).then((_) {
+      reFresh();
+    });
+    return true;
+  }
 }
