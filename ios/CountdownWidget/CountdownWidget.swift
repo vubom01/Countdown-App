@@ -28,7 +28,7 @@ struct Provider: IntentTimelineProvider {
         let currentDate = Date()
         var entries: [CountdownWidgetEntry] = []
         
-        for secondOffset in 0...3600 {
+        for secondOffset in 0...20 {
               let entryDate = Calendar.current.date(byAdding: .second, value: secondOffset, to: currentDate)!
               let entry = CountdownWidgetEntry(date: entryDate, event: event)
             entries.append(entry)

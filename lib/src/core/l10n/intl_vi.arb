@@ -14,5 +14,6 @@
   "selectTime": "Chọn thời gian",
   "done": "Xong",
   "noData": "Không có dữ liệu",
-  "pastEvent": "Sự kiện đã qua"
+  "pastEvent": "Sự kiện đã qua",
+  "cancel": "Hủy"
 }

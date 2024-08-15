@@ -1,4 +1,5 @@
 import 'package:bottom_picker/bottom_picker.dart';
+import 'package:calendar_date_picker2/calendar_date_picker2.dart';
 import 'package:countdown/src/app/data/data_sources/locals/event_local.dart';
 import 'package:countdown/src/app/presentations/events/events_controller.dart';
 import 'package:countdown/src/app/presentations/widgets/app_bar.dart';
@@ -39,22 +40,29 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
   }
 
   void _showDatePicker(BuildContext context, FormFieldState<DateTime> state) {
-    BottomPicker.date(
-      pickerTitle: const Text(''),
-      initialDateTime: state.value,
-      pickerTextStyle: TextStyle(
-        fontFamily: TekFonts().display,
-        fontSize: TekFontSizes().s16,
-        color: context.colorScheme.onSurface,
+    final config = CalendarDatePicker2WithActionButtonsConfig(
+      calendarType: CalendarDatePicker2Type.single,
+      cancelButtonTextStyle: TextStyle(
+        fontSize: TekFontSizes().s12,
+        color: TekColors().primary,
       ),
-      dateOrder: DatePickerDateOrder.dmy,
-      buttonSingleColor: TekColors().primary,
-      backgroundColor: context.colorScheme.onBackground,
-      closeIconColor: context.colorScheme.onSurface,
-      onSubmit: (value) {
-        state.didChange(value);
-      },
-    ).show(context);
+      okButtonTextStyle: TextStyle(
+        fontSize: TekFontSizes().s12,
+        color: TekColors().primary,
+      ),
+      selectedDayHighlightColor: TekColors().primary,
+    );
+    showCalendarDatePicker2Dialog(
+      context: context,
+      config: config,
+      dialogSize: const Size(325, 100),
+      borderRadius: BorderRadius.circular(15),
+      value: [state.value],
+    ).then((values) {
+      if (values != null && values.isNotEmpty) {
+        state.didChange(values[0]);
+      }
+    });
   }
 
   void _showTimePicker(BuildContext context, FormFieldState<DateTime> state) {
@@ -77,7 +85,7 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
   }
 
   void _onUpsertEvent() {
-    String name = _formKey.currentState!.fields[EventFormKey.$name]?.value;
+    String name = _formKey.currentState!.fields[EventFormKey.$name]?.value ?? S.current.newEvent;
     String? note = _formKey.currentState!.fields[EventFormKey.$note]?.value;
     String date = DateFormat(DateTimeFormatters.dateFormat)
         .format(_formKey.currentState!.fields[EventFormKey.$date]?.value);
@@ -123,15 +131,23 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
   Widget build(BuildContext context) {
     return BaseView(
       appBar: AppBarWidget(
-        isBackButtonVisible: true,
         title: widget.event == null ? S.current.addEvent : S.current.updateEvent,
-        iconColor: TekColors().primary,
-        actions: [
-          TekButton(
-            text: S.current.done,
-            size: TekButtonSize.medium,
+        leading: Align(
+          alignment: Alignment.centerRight,
+          child: TekButtonInkwell(
+            onPressed: () => context.popNavigator(),
+            text: S.current.cancel,
             textColor: TekColors().primary,
-            background: Colors.transparent,
+          ),
+        ),
+        actions: [
+          Padding(
+            padding: EdgeInsets.only(right: TekSpacings().p8),
+            child: TekButtonInkwell(
+              onPressed: _onUpsertEvent,
+              text: S.current.done,
+              textColor: TekColors().primary,
+            ),
           ),
         ],
       ),
@@ -140,7 +156,7 @@ class _UpsertEventPageState extends State<UpsertEventPage> {
         child: FormBuilder(
           key: _formKey,
           initialValue: {
-            EventFormKey.$name: widget.event?.name ?? S.current.newEvent,
+            EventFormKey.$name: widget.event?.name,
             EventFormKey.$note: widget.event?.note,
             EventFormKey.$date: DateFormat(DateTimeFormatters.dateFormat).parse(
               widget.event?.date ??

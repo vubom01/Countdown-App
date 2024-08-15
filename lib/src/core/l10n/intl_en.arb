@@ -14,5 +14,6 @@
   "selectTime": "Select time",
   "done": "Done",
   "noData": "No data",
-  "pastEvent": "Past event"
+  "pastEvent": "Past event",
+  "cancel": "Cancel"
 }
