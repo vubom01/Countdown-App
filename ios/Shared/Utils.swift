@@ -14,10 +14,9 @@ extension EventParam {
     }
 }
 
-func convertToDateTime(date: String?, time: String?) -> Date? {
+func convertToDateTime(date: String?, time: String?) -> Date {
     let dateTimeString = "\(date ?? "") \(time ?? "00:00")"
     let dateFormatter = DateFormatter()
-    dateFormatter.dateFormat = "dd/MM/yyyy HH:mm" // Adjust the format according to your input
-    
-    return dateFormatter.date(from: dateTimeString)
+    dateFormatter.dateFormat = "dd/MM/yyyy HH:mm"
+    return dateFormatter.date(from: dateTimeString) ?? Date()
 }
