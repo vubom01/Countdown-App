@@ -46,11 +46,11 @@ class _EventsPageContentWidgetState extends State<EventsPageContentWidget> {
                     padding: EdgeInsets.all(TekSpacings().mainSpacing),
                   );
                 }
-                return ListView.builder(
-                  // padding: EdgeInsets.all(TekSpacings().mainSpacing),
+                return ListView.separated(
+                  padding: EdgeInsets.all(TekSpacings().mainSpacing),
                   shrinkWrap: true,
                   physics: const BouncingScrollPhysics(),
-                  // separatorBuilder: (_, __) => TekVSpace.mainSpace,
+                  separatorBuilder: (_, __) => TekVSpace.mainSpace,
                   itemCount: _controller.state.events.length,
                   itemBuilder: (context, index) {
                     return EventCardWidget(

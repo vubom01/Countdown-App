@@ -7,7 +7,6 @@ import 'package:countdown/src/core/base_widget/base_view.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
 import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:countdown/src/core/styles/svg_icons.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';

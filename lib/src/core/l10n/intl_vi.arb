@@ -15,5 +15,6 @@
   "done": "Xong",
   "noData": "Không có dữ liệu",
   "pastEvent": "Sự kiện đã qua",
-  "cancel": "Hủy"
+  "cancel": "Hủy",
+  "delete": "Xóa"
 }

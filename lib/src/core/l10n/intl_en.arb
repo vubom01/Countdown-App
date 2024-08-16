@@ -15,5 +15,6 @@
   "done": "Done",
   "noData": "No data",
   "pastEvent": "Past event",
-  "cancel": "Cancel"
+  "cancel": "Cancel",
+  "delete": "Delete"
 }

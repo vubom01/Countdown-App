@@ -4,7 +4,6 @@ import 'package:countdown/src/app/presentations/events/index.dart';
 import 'package:countdown/src/core/constants/datetimes.dart';
 import 'package:countdown/src/core/l10n/generated/l10n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter_timer_countdown/flutter_timer_countdown.dart';
 import 'package:intl/intl.dart';
 import 'package:tekflat_design/tekflat_design.dart';
@@ -20,10 +19,6 @@ class EventCardWidget extends StatefulWidget {
 }
 
 class _EventCardWidgetState extends State<EventCardWidget> with SingleTickerProviderStateMixin {
-  late final SlidableController _slideController;
-
-  bool _isSlided = false;
-
   DateTime _getEndTime(String date, String? time) {
     final eventDate = DateFormat(DateTimeFormatters.dateFormat).parse(date);
     final eventTime = time != null ? DateFormat(DateTimeFormatters.timeFormat).parse(time) : null;
@@ -36,74 +31,41 @@ class _EventCardWidgetState extends State<EventCardWidget> with SingleTickerProv
     context.pushNavigator(page: UpsertEventPage(event: event));
   }
 
-  void _listenSlideChange() {
-    setState(() {
-      _isSlided = _slideController.direction.value == -1;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _slideController = SlidableController(this);
-    _slideController.direction.addListener(_listenSlideChange);
-    // if (_subscription != null) {
-    //   _subscription?.cancel();
-    //   _subscription = null;
-    // }
-    // _subscription = AppStreamService.to.eventStream.whereType<SlideEventListEvent>().listen(
-    //       (event) {
-    //     if (event.payload != null && event.payload != widget.event.id) {
-    //       _slidableController.close();
-    //     }
-    //   },
-    // );
-  }
-
-  @override
-  void dispose() {
-    _slideController.direction.removeListener(_listenSlideChange);
-    _slideController.dispose();
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context) {
-    return Slidable(
-      key: Key(widget.event.id.toString()),
-      controller: _slideController,
-      endActionPane: ActionPane(
-        motion: const StretchMotion(),
-        extentRatio: 0.16,
-        children: [
-          CustomSlidableAction(
-            padding: EdgeInsets.zero,
-            onPressed: null,
-            backgroundColor: TekColors().red,
-            foregroundColor: context.colorScheme.onSurface,
-            // borderRadius: BorderRadius.horizontal(
-            //   right: Radius.circular(15.scaleSpacing),
-            // ),
-            child: TekIconButton(
-              onPressed: () {
-                widget.controller.deleteEvent(widget.event);
-              },
-              icon: Icon(
-                Icons.delete_outline_outlined,
-                color: context.colorScheme.onSurface,
+    return GestureDetector(
+      onLongPress: () {
+        TekBottomSheet.customizeBottomSheet(
+          context,
+          title: widget.event.name,
+          isScrollControlled: true,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+          useRootNavigator: false,
+          mainAxisSize: MainAxisSize.min,
+          builder: (bContext) {
+            return Padding(
+              padding: EdgeInsets.all(TekSpacings().mainSpacing).copyWith(bottom: 40.scaleSpacing),
+              child: Column(
+                children: [
+                  TekButtonInkwell(
+                    text: S.current.delete,
+                    textColor: TekColors().red,
+                    onPressed: () {
+                      widget.controller.deleteEvent(widget.event);
+                      context.popNavigator();
+                    },
+                  )
+                ],
               ),
-            ),
-          ),
-        ],
-      ),
+            );
+          },
+        );
+      },
       child: TekButtonInkwell(
         onPressed: () => _onSelectEvent(widget.event),
         child: TekCard(
-          backgroundColor: context.colorScheme.background,
-          // borderRadius: BorderRadius.horizontal(
-          //   left: Radius.circular(15.scaleSpacing),
-          //   right: Radius.circular(_isSlided ? 0 : 15.scaleSpacing),
-          // ),
+          backgroundColor: TekColors().greyOpacity02,
+          borderRadius: BorderRadius.all(Radius.circular(15.scaleSpacing)),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
